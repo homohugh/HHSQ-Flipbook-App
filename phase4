@@ -1,0 +1,10 @@
+app.add(
+  FileInput({
+    label: 'Upload Background Music:',
+    id: 'backgroundAudio',
+    accept: 'audio/*'
+  })
+);
+// ...
+canvas.addAudio(app.get('backgroundAudio').file);
+canvas.playAudio();
