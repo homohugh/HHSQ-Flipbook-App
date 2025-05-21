@@ -1,0 +1,42 @@
+
+import {
+  App,
+  Input,
+  Button,
+  Canvas,
+  render
+} from '@farcaster/core';
+const app = new App({
+  name: 'HughsFlipbookApp',
+  title: 'Create Your Flipbook!'
+});
+app.add(
+  Input({
+    label: 'Enter text for flipbook:',
+    id: 'flipbookText',
+    type: 'text'
+  })
+);
+app.add(
+  Button({
+    label: 'Create Flipbook',
+    onClick: async () => {
+      const textInput = app.get('flipbookText').value;
+      const frames = textInput.split(' ');
+      const canvas = app.add(
+        Canvas({
+          width: 300,
+          height: 200
+        })
+      );
+      let frameIndex = 0;
+      setInterval(() => {
+        canvas.clear();
+        canvas.drawText(frames[frameIndex], 150, 100);
+        frameIndex = (frameIndex + 1) % frames.length;
+      }, 500);
+    }
+  })
+);
+render(app);
+```
