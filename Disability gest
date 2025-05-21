@@ -1,0 +1,1 @@
+await sdk.actions.ready({ disableNativeGestures: true });
