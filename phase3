@@ -1,0 +1,64 @@
+import {
+  App,
+  Input,
+  Button,
+  Canvas,
+  Select,
+  FileInput,
+  render
+} from '@farcaster/core';
+const app = new App({
+  name: 'HughsFlipbookApp',
+  title: 'Create Your Flipbook!'
+});
+app.add(
+  Input({
+    label: 'Enter text for flipbook:',
+    id: 'flipbookText',
+    type: 'text'
+  })
+);
+app.add(
+  Select({
+    label: 'Choose Font:',
+    id: 'fontSelect',
+    options: [
+      { value: 'Arial', label: 'Arial' },
+      { value: 'Comic Sans', label: 'Comic Sans' },
+      { value: 'Helvetica', label: 'Helvetica' },
+      // 7 more fonts...
+    ]
+  })
+);
+app.add(
+  FileInput({
+    label: 'Upload Background Image:',
+    id: 'backgroundImage'
+  })
+);
+app.add(
+  Button({
+    label: 'Create Flipbook',
+    onClick: async () => {
+      // ... (previous code remains)
+      const fontValue = app.get('fontSelect').value;
+      const backgroundImageFile = app.get('backgroundImage').file;
+      canvas.drawText(frames[frameIndex], 150, 100, fontValue);
+      canvas.drawImage(backgroundImageFile, 0, 0);
+      app.add(
+        Button({
+          label: 'Export GIF',
+          onClick: async () => {
+            const gifBlob = await canvas.exportGIF();
+            const gifUrl = URL.createObjectURL(gifBlob);
+            const a = document.createElement('a');
+            a.href = gifUrl;
+            a.download = 'flipbook.gif';
+            a.click();
+          }
+        })
+      );
+    }
+  })
+);
+render(app);
